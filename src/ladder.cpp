@@ -6,12 +6,12 @@ void error(string word1, string word2, string msg) {
 }
 
 bool edit_distance_within(const std::string& str1, const std::string& str2, int d) {
-    if (str1.length() - str2.length() > d) return false;
     int differences = 0;
     int i = 0;
     int j = 0;
     int str1_iter = str1.length();
     int str2_iter = str2.length();
+    if (abs(str1_iter - str2_iter) > d) return false;
     while (i < str1_iter && j < str2_iter) {
         if (str1[i] == str2[j]) {
             ++i;

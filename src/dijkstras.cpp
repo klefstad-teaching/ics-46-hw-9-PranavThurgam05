@@ -2,6 +2,7 @@
 
 vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& previous) {
     int n = G.numVertices;
+    G.resize(n);
     if (n==0) return {};
     vector<int> distances(n, INF);
     vector<bool> visited(n, false);
