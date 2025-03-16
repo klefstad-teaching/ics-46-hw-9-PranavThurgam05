@@ -6,7 +6,7 @@ void error(string word1, string word2, string msg) {
 }
 
 bool edit_distance_within(const std::string& str1, const std::string& str2, int d) {
-    if (abs(str1.length() - str2.length()) > d) return false;
+    if (str1.length() - str2.length() > d) return false;
     int differences = 0;
     int i = 0;
     int j = 0;
@@ -42,7 +42,7 @@ bool is_adjacent(const string& word1, const string& word2) {
 
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list) {
     if (begin_word == end_word) {
-        error("invalid input, start and end the same");
+        error(begin_word, end_word, "invalid input, start and end the same");
         return vector<string>();
     }
     std::queue<vector<string>> ladder_queue;
@@ -55,7 +55,7 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
         string last_word = ladder.back();
         for (auto word: word_list) {
             if (is_adjacent(last_word, word)) {
-                if (!visited.find(word)) {
+                if (visited.find(word) == visited.end()) {
                     visited.insert(word);
                     vector<string> new_ladder = ladder;
                     new_ladder.push_back(word);
@@ -71,14 +71,15 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
 void load_words(set<string> & word_list, const string& file_name) {
     ifstream in(file_name);
     word_list.clear();
-    for (string word; (in >> word) && count > 0; --count) {
-        set.insert(word);
+    string word;
+    while (in >> word) {
+        word_list.insert(word);
     }
     in.close();
 }
 
 void print_word_ladder(const vector<string>& ladder) {
-    if (ladder.empty()) error("invalid input, empty ladder");
+    if (ladder.empty()) error("", "","invalid input, empty ladder");
     for (auto word: ladder) {
         cout << word << "->" << " ";
     }
