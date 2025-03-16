@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <cmath>
+#define my_assert(e) {cout << #e << ((e) ? " passed": " failed") << endl;}
 
 using namespace std;
 
